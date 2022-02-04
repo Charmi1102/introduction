@@ -1,0 +1,84 @@
+<section>
+    <div class="container">
+        <h2 class="text-center">User Crud</h2>
+        <form [formGroup]="userForm" (ngSubmit)="saveData()">
+            <div class="form-group mt-3">
+                <label>First Name</label>
+                <input type="text" class="form-control" formControlName="firstName" autocomplete="off" name="firstName" required>
+                <span class="text-danger" *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.errors?.['required']">Please enter your first name.</span>
+            </div>
+            <div class="form-group mt-3">
+                <label>Last Name</label>
+                <input type="text" class="form-control" formControlName="lastName" autocomplete="off" name="lastName" required>
+                <span class="text-danger" *ngIf="userForm.get('lastName')?.touched && userForm.get('lastName')?.errors?.['required']">Please enter your last name.</span>
+            </div>
+            <div class="form-group mt-3">
+                <label>Age</label>
+                <input type="number" class="form-control" min="18" formControlName="age" autocomplete="off" name="age" required>
+                <span class="text-danger" *ngIf="userForm.get('age')?.touched && userForm.get('age')?.errors?.['required']">Please enter your age.</span>
+                <span class="text-danger" *ngIf="userForm.get('age')?.touched && userForm.get('age')?.errors?.['min']">Your age should be above 18.</span>
+            </div>
+            <div class="form-group mt-3">
+                <label>Hobbies</label><br>
+                <input type="checkbox" (change)="hobbiesChanged($event)" [checked]="userHobbies.includes('Reading')" value="Reading"> Reading
+                <input type="checkbox" class="ms-3" (change)="hobbiesChanged($event)" [checked]="userHobbies.includes('Writting')" value="Writting"> Writting
+                <input type="checkbox" class="ms-3" (change)="hobbiesChanged($event)" [checked]="userHobbies.includes('Playing')" value="Playing"> Playing
+                <input type="checkbox" class="ms-3" (change)="hobbiesChanged($event)" [checked]="userHobbies.includes('Travelling')" value="Travelling"> Travelling
+            </div>
+            <div class="form-group mt-3">
+                <label>Gender</label><br>
+                <input type="radio" formControlName="gender" autocomplete="off" name="gender" value="Male" (change)="hobbiesChanged($event)"> Male
+                <input type="radio" class="ms-3" formControlName="gender" autocomplete="off" name="gender" value="Female" (change)="hobbiesChanged($event)"> Female
+                <input type="radio" class="ms-3" formControlName="gender" autocomplete="off" name="gender" value="Other" (change)="hobbiesChanged($event)"> Other
+            </div>
+            <div class="form-group mt-3">
+                <label>City</label><br>
+               <select name="city" class="px-2" formControlName="city">
+                   <option value="Mumbai">Mumbai</option>
+                   <option value="Delhi">Delhi</option>
+                   <option value="Kerela">Kerela</option>
+                   <option value="Surat">Surat</option>
+                   <option value="Goa">Goa</option>
+                   <option value="Amroli">Amroli</option>
+                   <option value="Junagadh">Junagadh</option>
+               </select>
+            </div>
+            <div class="form-group">
+                <input type="file" class="form-control" (change)="setImage($event)" />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success mt-4" [disabled]="!userForm.valid">Submit</button>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-secondary table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Hobbies</th>
+                    <th>Gender</th>
+                    <th>City</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of userData">
+                    <td>{{ item.firstName }}</td>
+                    <td>{{ item.lastName }}</td>
+                    <td>{{ item.age }}</td>
+                    <td>{{ item.hobbies }}</td>
+                    <td>{{ item.gender }}</td>
+                    <td>{{ item.city }}</td>
+                    <td><img [src]="item.image" width="100" /></td>
+                    <td>
+                        <button class="btn btn-success me-2" (click)="editData(item)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteData(item._id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

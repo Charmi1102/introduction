@@ -1,0 +1,47 @@
+<div class="container">
+    <form [formGroup] = 'userForm'>
+    <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="firstname" class="form-control" formControlName="firstname" required>
+        <span class="text-danger" *ngIf="userForm.get('firstname')?.touched && userForm.get('firstname')?.errors?.['required']">Please enter your firstname.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Last Name</label>
+        <input type="text" name="lastname" class="form-control" formControlName="lastname" required>
+        <span class="text-danger" *ngIf="userForm.get('lastname')?.touched && userForm.get('lastname')?.errors?.['required']">Please enter your lastname.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Email Address</label>
+        <input type="email" name="email" class="form-control" formControlName="email" required>
+        <span class="text-danger" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors?.['required']">Please enter your email address.</span>
+        <span class="text-danger" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors?.['pattern']">Please enter proper email address.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Mobile Number</label>
+        <input type="number" name="mobile" class="form-control" formControlName="mobile" required>
+        <span class="text-danger" *ngIf="userForm.get('mobile')?.touched && userForm.get('mobile')?.errors?.['required']">Please enter your mobile number.</span>
+        <span class="text-danger" *ngIf="userForm.get('mobile')?.touched && userForm.get('mobile')?.errors?.['pattern']">Please enter 10 digits mobile number.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Age</label>
+        <input type="number" name="age" min="18" class="form-control" formControlName="age" required>
+        <span class="text-danger" *ngIf="userForm.get('age')?.touched && userForm.get('age')?.errors?.['required']">Please enter your age.</span>
+        <span class="text-danger" *ngIf="userForm.get('age')?.touched && userForm.get('age')?.errors?.['min']">Your age should be above 18.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Password</label>
+        <input type="text" name="password" class="form-control" formControlName="password" minlength="8" required>
+        <span class="text-danger" *ngIf="userForm.get('password')?.touched && userForm.get('password')?.errors?.['required']">Please enter your password it should be minimum 8 characters.</span>
+        <span class="text-danger" *ngIf="userForm.get('password')?.touched && userForm.get('password')?.errors?.['pattern']">Please create strong password.</span>
+    </div>
+    <div class="form-group mt-3">
+        <label>Confirm Password</label>
+        <input type="text" name="confirmPassword" class="form-control" formControlName="confirmPassword" required>
+        <span class="text-danger" *ngIf="userForm.get('confirmPassword')?.touched && userForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</span>
+        <span class="text-danger" *ngIf="userForm.get('confirmPassword')?.touched && userForm.get('password')?.value !== userForm.get('confirmPassword')?.value">Your password is not same.</span>
+    </div>
+    <div>
+        <button class="btn btn-success mt-4" [disabled]="!userForm.valid">Submit</button>
+    </div>
+    </form>
+</div>
